@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Word Guess Game</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap File -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="assets/css/style.css">
+  <!-- JQuery -->
+  <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+
+</head>
+
+<body>
+
+  <!-- Overall Bootstrap Grid -->
+  
+    <!-- Jumbotron with Title -->
+    <div class="jumbotron-fluid">
+      <div class="container-fluid ">
+            
+      <h1 class="text-center p-4 ">
+        <strong>Guess the Word!</strong>
+      </h1>
+   
+      <div class="text-center pb-3">
+        
+      <button class="btn btn-dark btn-xs btn-style" id="btn_newgame">
+      <span class="fa fa-gamepad"></span> Start A New Game</button> 
+      
+    </div>
+   
+  
+      <div id="musicControls" class="text-center p-4">
+        <button class="btn btn-dark  btn-xs btn-style" id="theme-button">
+          <span class="fa fa-music"></span> Play Theme</button>
+        <button class="btn btn-dark  btn-xs btn-style" id="pause-button">
+          <span class="fa fa-pause"></span> Pause Song</button>
+      </div>
+
+    </div>   
+    <div>  <!-- jumbotron div -->
+    <div class="container mt-4">
+    <div class="row">
+        <!-- left card (guess the word )-->
+      <div class="col-lg-6 ">
+            <div id="guessword" class="card border-0 m-2 ">
+                    <h4 class="card-header text-center">Current Word</h4>
+                    <div class="card-body ">
+                      <div class="text-center">
+                         <h3><span id="gaps">_ _ _ _ _ _ _ _</span></h3>
+                          <p id="para"> </p>
+                       
+                      </div>
+                      <div class="clearfix">
+                      <div class="p-2 float-left">
+                         Total Guesses : <span id="totalguesses"> 0 </span>
+                        </div>
+                        <div class="p-2 float-right">
+                                Guesses Left : <span id="guessesleft"> 0 </span>
+                              </div>
+                    </div>
+                      <div class="p-2" >
+                          Letters already guessed :<span id="alreadyguessed">  </span></div>
+                    </div>
+                  </div>
+      </div> <!--first column-->
+
+      <!-- Right Card (Score Board)-->
+      <div class="col-lg-6 ">
+            <div id="score" class="card border-0 m-2">
+                    <h4 class="card-header text-center">Score</h4>
+                    <div class="card-body">
+                       <div class="p-1 text-center"><p id="finalmsg">LETS PLAY A GAME!!!. </p></div>
+                      <div class="p-2" >
+                          Wins : <span id="wins"> 0 </span>
+                      </div>
+                      <div class="p-2" >
+                          Losses : <span id="losses"> 0 </span> 
+
+                      </div>
+                    </div>
+                  </div>
+      </div> <!--second column-->
+  </div>   <!-- container div -->
+
+  <script src="assets/javascript/game.js">
+
+  </script>
+
+</body>
+</html>
