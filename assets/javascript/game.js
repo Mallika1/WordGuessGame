@@ -9,7 +9,7 @@ let wins = $("#wins");
 let losses = $("#losses");
 let finalmsg = $("#finalmsg");
 let totalguesses = $("#totalguesses");
-
+let scorepoint  = $("#scorepoint");
 
 
 let gameStarted =false ;
@@ -22,6 +22,7 @@ let placeholderArr = [] ;
 let ramdamWord ="";
 let noOfTotalGuess = 0;
 let remainLetter = 0 ;
+let score_points =0;
 
 
 // let wordList = ["antimatter" , "asteroid" ,"celestial", "Ceres", "cluster", "comet", "constellation", "Galaxy", "meteor", "nebula", "supernova"] ;
@@ -31,32 +32,34 @@ function win(word)
 {
    
     var result = word.fontsize(5).fontcolor("blue");
-    document.getElementById("finalmsg").innerHTML = "The word is "+  result +" ."  +  " You WIN.";
+    document.getElementById("finalmsg").innerHTML = "The word is "+  result +" ."  +  " You WIN!!!";
   
-    score_wins=score_wins+1 ;
+    score_wins=score_wins+1;
+    score_points = score_points + word.length + n_guess;
+    scorepoint.text(score_points) ; 
     console.log("score_wins" + score_wins);
+    console.log("score_points" + score_points);
     wins.text(score_wins);
     $("#btn_newgame").text("Start A New Game");
     $("#btn_newgame").removeClass("green");
+    gameEnd=false;
+    gameStarted =false;
 }
 
 function loose(word){
     
         var result = word.fontsize(5).fontcolor("blue");
-        document.getElementById("finalmsg").innerHTML = "The word is "+  result +" ."  +  " You LOOSE.";
+        document.getElementById("finalmsg").innerHTML = "The word is "+  result +" ."  +  " You LOST :(";
         // updateStatement.text("Wrong!. Better luck next time.");
         score_losses = score_losses+ 1;
         losses.text(score_losses);
         $("#btn_newgame").text("Start A New Game");
         $("#btn_newgame").removeClass("green");
+        gameEnd=false;
 }
 
 function letterGuessed(letter)
 {
-   if(!gameStarted)
-    {
-        alert("Start a New Game");
-    }
    
     if( gameStarted && lettersGuessedArr.indexOf(letter)=== -1)
     {
@@ -86,7 +89,7 @@ function letterGuessed(letter)
             {
                 remainLetter--;
                 placeholderArr[i]= ramdamWord[i];
-                updateStatement.text("( Hint: " + remainLetter + " letter to go )");
+                updateStatement.text("( Hint: " + remainLetter + " letter/s to go )");
             }
         }
         
@@ -101,6 +104,7 @@ function letterGuessed(letter)
             gameEnd = true;
             win(ramdamWord);
     }
+  
     else if(gameEnd ) 
     {
         loose(ramdamWord);
@@ -115,7 +119,7 @@ function newGame()
     // score_wins = 0 ;
     // score_losses = 0 ;
     noOfTotalGuess = 0;
-    
+    // score_points = 0;
     lettersGuesses = [];
     placeholderArr = [];
     let wordList = ["antimatter" , "asteroid" ,"celestial", "Ceres", "cluster", "comet", "constellation", "Galaxy", "meteor", "nebula", "supernova"] ;
@@ -161,6 +165,11 @@ $("#btn_newgame").on("click", function() {
                 letterGuessed(e.key);
             }
         }
+        if(!gameStarted)
+        {
+            alert("Start a New Game");
+        }
+       
         
     
   };
