@@ -11,7 +11,7 @@ let finalmsg = $("#finalmsg");
 let totalguesses = $("#totalguesses");
 let scorepoint  = $("#scorepoint");
 
-
+let wordList = ["antimatter" , "asteroid" ,"celestial", "Ceres", "cluster", "comet", "constellation", "Galaxy", "meteor", "nebula", "supernova"] ;
 let gameStarted =false ;
 let gameEnd =false ;
 let score_wins = 0 ; 
@@ -104,10 +104,12 @@ function letterGuessed(letter)
             gameEnd = true;
             win(ramdamWord);
     }
-  
-    else if(gameEnd ) 
+  else if(gameEnd ) 
     {
         loose(ramdamWord);
+    }
+    else{
+        alert("something");
     }
     
 }
@@ -122,7 +124,7 @@ function newGame()
     // score_points = 0;
     lettersGuesses = [];
     placeholderArr = [];
-    let wordList = ["antimatter" , "asteroid" ,"celestial", "Ceres", "cluster", "comet", "constellation", "Galaxy", "meteor", "nebula", "supernova"] ;
+   
     ramdamWord = wordList[Math.floor(Math.random() * wordList.length)];
     n_guess = ramdamWord.length;
     remainLetter = ramdamWord.length;
@@ -165,10 +167,7 @@ $("#btn_newgame").on("click", function() {
                 letterGuessed(e.key);
             }
         }
-        if(!gameStarted)
-        {
-            alert("Start a New Game");
-        }
+       
        
         
     
