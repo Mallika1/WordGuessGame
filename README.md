@@ -8,9 +8,10 @@ Hint will display the no. of characters in the word.
 user will be provided with certain no. of guesses.
 
 Start guessing the letters. 
+
 For any guess (correct/wrong) : 
 total guess counter will increase by one. 
-letter guessed will have all the letter guessed .(this will have all the letters guessed(correct letters and incorrect letters))
+letter guessed will have all the letter guessed .(correct letters and incorrect letters))
 
 letter guessed is correct: 
 fill the appropriate blank.
@@ -28,7 +29,7 @@ wins: # of times user guessed the word correctly. win message displays above the
 losses: # of times user guessed the word incorrectly. lost message displays above the current word panel.
 
 points: this.score_points + word.length + this.n_guess; 
-Players who makes less wrog guesses will score more. 
+Player who makes less wrog guesses will score more. 
 
 After the user wins/loses the game will automatically choose another word and make the user play it.
 
