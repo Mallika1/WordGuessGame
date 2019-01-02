@@ -4,6 +4,8 @@
 ![Image of wordgame]
 (https://mallika1.github.io/WordGuessGame/assets/images/wordgame.jpg)
 
+(https://octodex.github.com/images/yaktocat.png)
+
 
 Guess the word based on the theme . Here theme is Space. So every word related to space. 
 
