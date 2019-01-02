@@ -2,7 +2,7 @@
 # WordGuessGame
 
 ![Image of wordgame]
-(https://github.com/Mallika1/WordGuessGame/tree/master/assets/images/wordgame.jpg)
+(https://mallika1.github.io/WordGuessGame/assets/images/wordgame.jpg)
 
 
 Guess the word based on the theme . Here theme is Space. So every word related to space. 
