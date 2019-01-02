@@ -1,6 +1,7 @@
 
 # WordGuessGame
 
+![Image of wordgame]
 (https://github.com/Mallika1/WordGuessGame/tree/master/assets/images/wordgame.jpg)
 
 
