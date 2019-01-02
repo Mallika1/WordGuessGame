@@ -1,5 +1,9 @@
 
 # WordGuessGame
+
+(https://octodex.github.com/images/wordgame.jpg)
+
+
 Guess the word based on the theme . Here theme is Space. So every word related to space. 
 
 Press any key to start the game. 

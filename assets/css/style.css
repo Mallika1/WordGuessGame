@@ -1,11 +1,15 @@
 body {
     font-family: 'Roboto', 'sans-serif';
+    display:block;
+    color:orangered;
+    /* background:black; */
+    background-image:url(../images/space1.jpg);
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-size:cover;
+   
 }
 .spacebody{
-    color:orangered;
-    background-image:url('../images/space1.jpg');
-    background-repeat:no-repeat;
-    background-size:cover;
    
 }
 
