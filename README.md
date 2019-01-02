@@ -41,7 +41,7 @@ Player who makes less wrog guesses will score more.
 After the user wins/loses the game will automatically choose another word and allow the user play it.
 
 Reset Button
-reset button will reset the game anytime. player can start the game by using any key.
+resets the game anytime. player can start the game by using any key.
 
 
 
