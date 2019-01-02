@@ -1,33 +1,23 @@
-
-
 body {
-    color:orangered;
-    background-image: url("../images/space1.jpg");
-background-repeat:no-repeat;
-background-size:cover;
+    font-family: 'Roboto', 'sans-serif';
 }
+.spacebody{
+    color:orangered;
+    background-image:url('../images/space1.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
+   
+}
+
 
 .btn-style{
     color:#ff4500;
-    background: black;
+    background-color: Transparent;
+    font-weight:bold;
 }
 
-#guessword{
-    /* color:white; */
-  color:orangered;
+#panel{
     opacity: 0.7;
-    font-weight: bold;
     background: black;
+   
 }
-
-#score{
-    background: black;
-    color:orangered;
-    opacity: 0.7;
-    font-weight: bold;
-}
-
-.green{
-    background: green;
-}
-

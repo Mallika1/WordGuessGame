@@ -1,6 +1,5 @@
 //get the references to DOM element 
 
-let newGameButton = $("#btn_newgame");
 let gapsToFill = $("#gaps");
 let updateStatement = $("#para");
 let guessLeft = $("#guessesleft");
@@ -9,178 +8,143 @@ let wins = $("#wins");
 let losses = $("#losses");
 let finalmsg = $("#finalmsg");
 let totalguesses = $("#totalguesses");
-let scorepoint  = $("#scorepoint");
+let scorepoint = $("#scorepoint");
+let continuegame = $("#btn_reset");
+var audio = new Audio("assets/winsound.mp3");
 
-let wordList = ["antimatter" , "asteroid" ,"celestial", "Ceres", "cluster", "comet", "constellation", "Galaxy", "meteor", "nebula", "supernova"] ;
-let gameStarted =false ;
-let gameEnd =false ;
-let score_wins = 0 ; 
-let score_losses = 0 ;
-let n_guess =0 ;
-let lettersGuessedArr = [];
-let placeholderArr = [] ;
-let ramdamWord ="";
-let noOfTotalGuess = 0;
-let remainLetter = 0 ;
-let score_points =0;
-
-
-// let wordList = ["antimatter" , "asteroid" ,"celestial", "Ceres", "cluster", "comet", "constellation", "Galaxy", "meteor", "nebula", "supernova"] ;
-// let ramdamWord = wordList[Math.floor(Math.random() * wordList.length)];
-
-function win(word)
-{
-   
-    var result = word.fontsize(5).fontcolor("blue");
-    document.getElementById("finalmsg").innerHTML = "The word is "+  result +" ."  +  " You WIN!!!";
-  
-    score_wins=score_wins+1;
-    score_points = score_points + word.length + n_guess;
-    scorepoint.text(score_points) ; 
-    console.log("score_wins" + score_wins);
-    console.log("score_points" + score_points);
-    wins.text(score_wins);
-    $("#btn_newgame").text("Start A New Game");
-    $("#btn_newgame").removeClass("green");
-    gameEnd=false;
-    gameStarted =false;
-}
-
-function loose(word){
+var wordGame ={
+    wordList_space : ["antimatter", "asteroid", "celestial", "Ceres", "cluster", "comet", "constellation", "galaxy", "meteor", "nebula", "supernova"],
+    gameStarted :false,
+    ramdamWord : "",
+    score_wins : 0,
+    score_losses : 0,
+    n_guess : 0,
+    lettersGuessedArr :[],
+    placeholderArr : [],
+    noOfTotalGuess : 0,
+    remainLetter : 0,
+    score_points : 0,
+    firstClicked : false,
     
-        var result = word.fontsize(5).fontcolor("blue");
-        document.getElementById("finalmsg").innerHTML = "The word is "+  result +" ."  +  " You LOST :(";
-        // updateStatement.text("Wrong!. Better luck next time.");
-        score_losses = score_losses+ 1;
-        losses.text(score_losses);
-        $("#btn_newgame").text("Start A New Game");
-        $("#btn_newgame").removeClass("green");
-        gameEnd=false;
-}
-
-function letterGuessed(letter)
-{
-   
-    if( gameStarted && lettersGuessedArr.indexOf(letter)=== -1)
-    {
-        
-        lettersGuessedArr.push(letter);
-        
-            if(ramdamWord.indexOf(letter) ==-1)
-            {
-                n_guess--;
-                guessLeft.text(n_guess);
-            
-            }
-       
-        noOfTotalGuess++ ; 
-        totalguesses.text(noOfTotalGuess);
-        
-        if(n_guess === 0 )
-        {
-            gameStarted = false;
-            gameEnd = true;
+    
+    newGame: function() {
+       this.noOfTotalGuess = 0;
+       this.lettersGuesses = [];
+       this.placeholderArr = [];
+       this.gameStarted = true;
+       this.ramdamWord =  this.wordList_space[Math.floor(Math.random() *  this.wordList_space.length)];
+       this.n_guess = 7;
+       this.remainLetter = this.ramdamWord.length;
+        for (let i = 0; i < this.ramdamWord.length; i++) {
+            this.placeholderArr.push("_")
         }
-       
-        for( let i=0; i<ramdamWord.length; i++ )
-        {
+        gapsToFill.text( this.placeholderArr.join(" "));
+        updateStatement.text("( Hint: " + this.remainLetter + " letter word )");
+        guessLeft.text(this.n_guess);
+        if ( this.lettersGuessedArr.length > 0) {
+            this.lettersGuessedArr.splice(0);
+        }
+        alreadyGuessed.text(this.lettersGuessedArr);
+        totalguesses.text(this.noOfTotalGuess);
+        // finalmsg.text("Game Started.");
+    },
+
+    letterGuessed :function(letter) {
+        if ( this.gameStarted &&  this.lettersGuessedArr.indexOf(letter) === -1 ) {
            
-            if(ramdamWord[i].toLowerCase() === letter.toLowerCase())
-            {
-                remainLetter--;
-                placeholderArr[i]= ramdamWord[i];
-                updateStatement.text("( Hint: " + remainLetter + " letter/s to go )");
+            for (let i = 0; i <  this.ramdamWord.length; i++) {
+                if ( this.ramdamWord[i].toLowerCase() === letter.toLowerCase()) {
+                    this.placeholderArr[i] = this.ramdamWord[i];
+                    this.remainLetter--;
+                    updateStatement.text("( Hint: " +  this.remainLetter + " letter/s to go )");
+                }
             }
+            gapsToFill.text(this.placeholderArr.join(" ").toUpperCase());
+            this.updateLeftPanelResult(letter);
         }
-        
-        gapsToFill.text(placeholderArr.join(" "));
-     
-        alreadyGuessed.text( lettersGuessedArr.join(" ") );
-       
-    }
-    if( placeholderArr.length > 0 && placeholderArr.join("").toLowerCase() == ramdamWord.toLowerCase())
-    {
-           
-            gameEnd = true;
-            win(ramdamWord);
-    }
-  else if(gameEnd ) 
-    {
-        loose(ramdamWord);
-    }
-    else{
-        alert("something");
-    }
-    
-}
-
-function newGame()
-{
-    gameStarted = true;
-    gameEnd = false;
-    // score_wins = 0 ;
-    // score_losses = 0 ;
-    noOfTotalGuess = 0;
-    // score_points = 0;
-    lettersGuesses = [];
-    placeholderArr = [];
-   
-    ramdamWord = wordList[Math.floor(Math.random() * wordList.length)];
-    n_guess = ramdamWord.length;
-    remainLetter = ramdamWord.length;
-    for( let i=0; i<ramdamWord.length; i++ )
-    {
-        placeholderArr.push("_")
-    }
-   
-    console.log("ramdamWord" + ramdamWord);
-   
-    
-    gapsToFill.text(placeholderArr.join(" "));
-    updateStatement.text("( Hint: " + n_guess + " letter word )");
-    console.log(n_guess);
-    guessLeft.text(n_guess);
-    if(lettersGuessedArr.length > 0)
-    {
-        lettersGuessedArr.splice(0);
-    }
-    alreadyGuessed.text(lettersGuessedArr);
-    finalmsg.text("LETS PLAY A GAME!!!");
-    totalguesses.text(noOfTotalGuess);
-}
-
-$("#btn_newgame").on("click", function() {
-    
-    // $("#empty-div").html("Game Started");
-    $("#btn_newgame").text("Game Started");
-    $("#btn_newgame").addClass("green");
-    newGame();
- });
-
- document.onkeyup = function(e) {
-   
-        if(gameStarted)
-        {
-            console.log(e.key);
-            if(e.keyCode >=65 && e.keyCode<=90)
-            {
-                letterGuessed(e.key);
-            }
+        else {
+            alert("you have tried this letter . Please try with a new letter.");
         }
-       
-       
+    },
+    win:function(word) {
+        var result = word.fontsize(5).fontcolor("red");
         
+        finalmsg.html("The word is " + result + " ." + " You WON!. New Game Started.");
+        this.score_wins = this.score_wins + 1;
+        this.score_points = this.score_points + word.length + this.n_guess;
+        scorepoint.text(this.score_points);
+        wins.text(this.score_wins);
+        audio.play();
+        this.gameStarted = false;
+        this.ramdamWord = this.wordList_space[Math.floor(Math.random() * this.wordList_space.length)];
+        this.newGame();
+    },
     
-  };
+    loss:function(word) {
+        var result = word.fontcolor("red");
+        finalmsg.html("The word is " + result + " ." + " You LOST! New Game Started.");
+        this.score_losses = this.score_losses + 1;
+        losses.text(this.score_losses);
+        this.ramdamWord = this.wordList_space[Math.floor(Math.random() * this.wordList_space.length)];
+        this.newGame();
+    },
+    updateLeftPanelResult:function(letter) {
 
-  // Gets Link for Theme Song
-  var audioElement = document.createElement("audio");
-  audioElement.setAttribute("src", "../assets/spacesound.mp3");
+        if ( this.lettersGuessedArr.indexOf(letter) === -1) {
+            this.lettersGuessedArr.push(letter);
+            alreadyGuessed.text(this.lettersGuessedArr.join(" ").toUpperCase());
+        }
+        this.noOfTotalGuess++;
+        totalguesses.text(this.noOfTotalGuess);
+    
+        if ( this.ramdamWord.toLowerCase().indexOf(letter.toLowerCase()) == -1) {
+            this.n_guess--;
+            guessLeft.text(this.n_guess);
+        }
+        this.firstClicked =false;
+    
+        if ( this.n_guess === 0) {
+            this.gameStarted = false;
+        }
+        if ( this.remainLetter == 0) {
+            updateStatement.text("Well Done!!");
+        }
+        if ( this.placeholderArr.join("").toLowerCase() ==  this.ramdamWord.toLowerCase()) {
+            this.gameStarted = false;
+            this.win(this.ramdamWord);
+        }
+        if ( this.n_guess == 0 &&  this.placeholderArr.join("").toLowerCase() !=  this.ramdamWord.toLowerCase()) {
+            updateStatement.text("Better luck next time!");
+            this.gameStarted = false;
+            this.loss(this.ramdamWord);
+        }
+    },
+};
 
-  // Theme Button
-  $("#theme-button").on("click", function() {
-    audioElement.play();
-  });
-  $("#pause-button").on("click", function() {
-    audioElement.pause();
-  });
+
+document.onkeyup = function (e) {
+    console.log(e.key);
+    wordGame.firstClicked=false ;
+    if(wordGame.gameStarted == false){
+        wordGame.newGame();
+        finalmsg.text("Game Started.");
+        wordGame.firstClicked =true;
+    }
+    if (e.keyCode >= 65 && e.keyCode <= 90 && wordGame.firstClicked==false ) {
+        wordGame.letterGuessed(e.key);
+    }
+};
+
+$("#btn_reset").on("click", function () {
+    gameStarted = false;
+    // newGame();
+    wins.text(0);
+    losses.text(0);
+    scorepoint.text(0);
+    totalguesses.text(0);
+    wordGame.lettersGuessedArr.splice(0);
+    alreadyGuessed.text(wordGame.lettersGuessedArr);
+    guessLeft.text(0);
+    updateStatement.text("( Hint: No. of letters in the word. )");
+
+});
