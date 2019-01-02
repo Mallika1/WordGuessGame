@@ -31,6 +31,8 @@ none of the counter will be affected.  Pop up to notify same letter pressed.
 
 Score: 
 wins: # of times user guessed the word correctly. win message displays above the current word panel.
+and plays win music.
+
 losses: # of times user guessed the word incorrectly. lost message displays above the current word panel.
 
 points: this.score_points + word.length + this.n_guess; 
