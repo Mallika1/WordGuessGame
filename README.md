@@ -1,10 +1,6 @@
 
 # WordGuessGame
 
-![Image of wordgame]
-(https://mallika1.github.io/WordGuessGame/assets/images/wordgame.jpg)
-
-![GitHub Logo](/images/logo.png)
 Format: ![Alt Text](https://mallika1.github.io/WordGuessGame/assets/images/wordgame.jpg)
 
 
